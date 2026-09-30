@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Schedule | AURA 2026 Fest</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f5ff;
+            color: #1c1830;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #171329;
+            padding: 17px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,.15);
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ffb703;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #d8d5e3;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #ffb703;
+        }
+
+        .register-btn {
+            background: #ffb703;
+            color: #171329 !important;
+            padding: 11px 18px;
+            border-radius: 25px;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 350px;
+            padding: 60px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(23,19,41,.98),
+                    rgba(79,54,130,.92)
+                );
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-label {
+            color: #ffb703;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 70px);
+            margin: 12px 0;
+        }
+
+        .hero p {
+            color: #d9d6e4;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+
+        /* ================= LIVE CLOCK ================= */
+
+        .live-panel {
+            width: min(900px, 90%);
+            margin: -45px auto 0;
+            position: relative;
+            z-index: 5;
+
+            background: white;
+            border-radius: 20px;
+            padding: 22px 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            box-shadow: 0 15px 45px rgba(35,25,70,.12);
+        }
+
+        .live-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .live-dot {
+            width: 11px;
+            height: 11px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34,197,94,.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(34,197,94,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(34,197,94,0);
+            }
+        }
+
+        .live-info strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .live-info small {
+            color: #777;
+        }
+
+        #liveClock {
+            font-size: 20px;
+            font-weight: 800;
+            color: #171329;
+        }
+
+
+        /* ================= SCHEDULE ================= */
+
+        .schedule-section {
+            padding: 75px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading span {
+            color: #e85d04;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            margin: 10px 0;
+        }
+
+        .section-heading p {
+            color: #666;
+        }
+
+
+        /* ================= DAY FILTER ================= */
+
+        .day-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 45px;
+        }
+
+        .day-btn {
+            border: 1px solid #ddd;
+            background: white;
+            padding: 13px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #555;
+            transition: .3s;
+        }
+
+        .day-btn:hover,
+        .day-btn.active {
+            background: #171329;
+            color: white;
+            border-color: #171329;
+        }
+
+
+        /* ================= TIMELINE ================= */
+
+        .timeline {
+            max-width: 1000px;
+            margin: auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 125px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ded9ed;
+        }
+
+        .schedule-item {
+            display: grid;
+            grid-template-columns: 105px 40px 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+
+        .time {
+            text-align: right;
+            font-weight: 800;
+            color: #5a3fc0;
+            font-size: 14px;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: #ffb703;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px #ffb703;
+            z-index: 2;
+        }
+
+        .schedule-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+            border: 1px solid #eee;
+            transition: .3s;
+        }
+
+        .schedule-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.10);
+        }
+
+        .schedule-card h3 {
+            font-size: 20px;
+            margin-bottom: 9px;
+        }
+
+        .schedule-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .schedule-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .meta {
+            background: #f4f1ff;
+            color: #5a3fc0;
+            padding: 7px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            margin-bottom: 10px;
+        }
+
+        .upcoming {
+            background: #fff4d6;
+            color: #a16207;
+        }
+
+        .open {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+
+        /* ================= COUNTDOWN ================= */
+
+        .countdown-box {
+            max-width: 900px;
+            margin: 55px auto 0;
+            padding: 30px;
+            border-radius: 20px;
+            background: #171329;
+            color: white;
+            text-align: center;
+        }
+
+        .countdown-box h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .countdown-box p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffb703;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #171329;
+            color: white;
+            text-align: center;
+            padding: 30px 7%;
+        }
+
+        footer p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 67px;
+                left: 0;
+                width: 100%;
+                background: #171329;
+                display: none;
+                flex-direction: column;
+                padding: 25px;
+            }
+
+            nav.show {
+                display: flex;
+            }
+
+            .live-panel {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 18px;
+            }
+
+            .schedule-item {
+                grid-template-columns: 25px 1fr;
+                gap: 18px;
+            }
+
+            .time {
+                grid-column: 2;
+                grid-row: 1;
+                text-align: left;
+                color: #5a3fc0;
+            }
+
+            .timeline-dot {
+                grid-column: 1;
+                grid-row: 1 / span 2;
+            }
+
+            .schedule-card {
+                grid-column: 2;
+            }
+
+            .schedule-section {
+                padding: 55px 5%;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .hero {
+                min-height: 300px;
+                padding: 50px 5%;
+            }
+
+            .section-heading h2 {
+                font-size: 30px;
+            }
+
+            #countdown {
+                font-size: 21px;
+            }
+
+            .schedule-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        AURA <span>2026</span> FEST
+    </div>
+
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <nav id="navMenu">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="events.html">
+            Events
+        </a>
+
+        <a href="schedule.html" class="active">
+            Schedule
+        </a>
+
+        <a href="gallery.html">
+            Gallery
+        </a>
+
+        <a href="registration.html">
+            Registration
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+        <a href="registration.html" class="register-btn">
+            Register Now
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-label">
+            AURA 2026 • 12–14 OCTOBER
+        </div>
+
+        <h1>Event Schedule</h1>
+
+        <p>
+            Plan your fest experience with our complete
+            three-day schedule of technical, cultural,
+            sports and fun activities.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LIVE TIME ================= -->
+
+<div class="live-panel">
+
+    <div class="live-info">
+
+        <div class="live-dot"></div>
+
+        <div>
+            <strong>Live Event Portal</strong>
+            <small>Current local time</small>
+        </div>
+
+    </div>
+
+    <div id="liveClock">
+        Loading...
+    </div>
+
+</div>
+
+
+<!-- ================= SCHEDULE SECTION ================= -->
+
+<section class="schedule-section">
+
+    <div class="section-heading">
+
+        <span>Three Days • One Celebration</span>
+
+        <h2>What's Happening?</h2>
+
+        <p>
+            Select a day to view the planned activities.
+        </p>
+
+    </div>
+
+
+    <!-- DAY FILTER -->
+
+    <div class="day-filter">
+
+        <button class="day-btn active" data-day="day1">
+            12 October
+        </button>
+
+        <button class="day-btn" data-day="day2">
+            13 October
+        </button>
+
+        <button class="day-btn" data-day="day3">
+            14 October
+        </button>
+
+    </div>
+
+
+    <!-- TIMELINE -->
+
+    <div class="timeline">
+
+
+        <!-- DAY 1 EVENT 1 -->
+
+        <div class="schedule-item" data-day="day1">
+
+            <div class="time">
+                09:00 AM
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="schedule-card">
+
+                <span class="status open">
+                    Opening
+                </span>
+
+                <h3>Inauguration Ceremony</h3>
+
+                <p>
+                    Official inauguration of AURA 2026
+                    followed by the welcome address.
+                </p>
+
+                <div class="schedule-meta">
+
+                    <span class="meta">
+                        📍 Main Auditorium
+                    </span>
+
+                    <span class="meta">
+                        👤 Fest Committee
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DAY 1 EVENT 2 -->
+
+        <div class="schedule-item" data-day="day1">
+
+            <div class="time">
+                10:00 AM
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="schedule-card">
+
+                <span class="status upcoming">
+                    Technical
+                </span>
+
+                <h3>Code Clash</h3>
+
+                <p>
+                    Competitive programming challenge
+                    for students interested in coding.
+                </p>
+
+                <div class="schedule-meta">
+
+                    <span class="meta">
+                        📍 Innovation Lab
+                    </span>
+
+                    <span class="meta">
+                        👤 Technical Team
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DAY 1 EVENT 3 -->
+
+        <div class="schedule-item" data-day="day1">
+
+            <div class="time">
+                02:00 PM
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="schedule-card">
+
+                <span class="status upcoming">
+                    Technical
+                </span>
+
+                <h3>Idea Arena</h3>
+
+                <p>
+                    Participants present innovative ideas
+                    and practical technology solutions.
+                </p>
+
+                <div class="schedule-meta">
+
+                    <span class="meta">
+                        📍 Seminar Hall
+                    </span>
+
+                    <span class="meta">
+                        👤 Innovation Team
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DAY 2 EVENT 1 -->
+
+        <div class="schedule-item" data-day="day2">
+
+            <div class="time">
+                10:30 AM
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="schedule-card">
+
+                <span class="status upcoming">
+                    Cultural
+                </span>
+
+                <h3>Rhythm Rush</h3>
+
+                <p>
+                    Music, singing and stage performances
+                    featuring talented student participants.
+                </p>
+
+                <div class="schedule-meta">
+
+                    <span class="meta">
+                        📍 Open Auditorium
+                    </span>
+
+                    <span class="meta">
+                        👤 Cultural Team
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DAY 2 EVENT 2 -->
+
+        <div class="schedule-item" data-day="day2">
+
+            <div class="time">
+                01:00 PM
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="schedule-card">
+
+                <span class="status upcoming">
+                    Creative
+                </span>
+
+                <h3>Canvas Quest</h3>
+
+                <p>
+                    A creative art challenge where
+                    participants turn imagination into artwork.
+                </p>
+
+                <div class="schedule-meta">
+
+                    <span class="meta">
+                        📍 Art Studio
+                    </span>
+
+                    <span class="meta">
+                        👤 Arts Club
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DAY 3 EVENT 1 -->
+
+        <div class="schedule-item" data-day="day3">
+
+            <div class="time">
+                09:00 AM
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="schedule-card">
+
+                <span class="status upcoming">
+                    Sports
+                </span>
+
+                <h3>Mini League</h3>
+
+                <p>
+                    A friendly sports competition focused
+                    on teamwork, energy and sportsmanship.
+                </p>
+
+                <div class="schedule-meta">
+
+                    <span class="meta">
+                        📍 College Ground
+                    </span>
+
+                    <span class="meta">
+                        👤 Sports Committee
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DAY 3 EVENT 2 -->
+
+        <div class="schedule-item" data-day="day3">
+
+            <div class="time">
+                02:00 PM
+            </div>
+
+            <div class="timeline-dot"></div>
+
+            <div class="schedule-card">
+
+                <span class="status upcoming">
+                    Fun
+                </span>
+
+                <h3>Fun Fiesta</h3>
+
+                <p>
+                    Games, challenges and entertainment
+                    activities to close the celebration.
+                </p>
+
+                <div class="schedule-meta">
+
+                    <span class="meta">
+                        📍 Main Block
+                    </span>
+
+                    <span class="meta">
+                        👤 Student Committee
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= COUNTDOWN ================= -->
+
+    <div class="countdown-box">
+
+        <h3>AURA 2026 Begins In</h3>
+
+        <p>
+            Countdown to the opening day
+        </p>
+
+        <div id="countdown">
+            Loading countdown...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 AURA Fest | Prathyusha Engineering College
+    </p>
+
+    <p style="margin-top:8px;">
+        Responsive College Event Portal • Front-End Mini Project
+    </p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    /* ================= MOBILE MENU ================= */
+
+    function toggleMenu() {
+
+        document
+            .getElementById("navMenu")
+            .classList.toggle("show");
+
+    }
+
+
+    /* ================= LIVE CLOCK ================= */
+
+    function updateClock() {
+
+        const now = new Date();
+
+        const time = now.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
+
+        const date = now.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+
+        document.getElementById("liveClock").innerHTML =
+            `${date} • ${time}`;
+
+    }
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+
+
+    /* ================= DAY FILTER ================= */
+
+    const dayButtons =
+        document.querySelectorAll(".day-btn");
+
+    const scheduleItems =
+        document.querySelectorAll(".schedule-item");
+
+
+    dayButtons.forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            dayButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+            const selectedDay =
+                this.getAttribute("data-day");
+
+
+            scheduleItems.forEach(item => {
+
+                if (
+                    item.getAttribute("data-day")
+                    === selectedDay
+                ) {
+
+                    item.style.display = "grid";
+
+                } else {
+
+                    item.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+    /* ================= COUNTDOWN ================= */
+
+    const festStart =
+        new Date("October 12, 2026 09:00:00").getTime();
+
+
+    function updateCountdown() {
+
+        const now =
+            new Date().getTime();
+
+        const difference =
+            festStart - now;
+
+
+        if (difference <= 0) {
+
+            document.getElementById("countdown").innerHTML =
+                "🎉 AURA 2026 IS LIVE!";
+
+            return;
+
+        }
+
+
+        const days =
+            Math.floor(
+                difference /
+                (1000 * 60 * 60 * 24)
+            );
+
+
+        const hours =
+            Math.floor(
+                (difference %
+                    (1000 * 60 * 60 * 24)) /
+                (1000 * 60 * 60)
+            );
+
+
+        const minutes =
+            Math.floor(
+                (difference %
+                    (1000 * 60 * 60)) /
+                (1000 * 60)
+            );
+
+
+        const seconds =
+            Math.floor(
+                (difference %
+                    (1000 * 60)) /
+                1000
+            );
+
+
+        document.getElementById("countdown").innerHTML =
+            `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+
+    }
+
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+
+</script>
+
+</body>
+</html>

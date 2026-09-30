@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gallery | AURA 2026 Fest</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f5ff;
+            color: #1c1830;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #171329;
+            padding: 17px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,.15);
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ffb703;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #d8d5e3;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #ffb703;
+        }
+
+        .register-btn {
+            background: #ffb703;
+            color: #171329 !important;
+            padding: 11px 18px;
+            border-radius: 25px;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 55px 7%;
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(23,19,41,.96),
+                    rgba(82,53,135,.93)
+                );
+        }
+
+        .hero-label {
+            color: #ffb703;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 70px);
+            margin: 12px 0;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #ddd9e8;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* ================= GALLERY SECTION ================= */
+
+        .gallery-section {
+            padding: 75px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading span {
+            color: #e85d04;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            margin: 10px 0;
+        }
+
+        .section-heading p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* ================= TOOLBAR ================= */
+
+        .gallery-toolbar {
+            max-width: 1100px;
+            margin: 0 auto 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            border: 1px solid #ddd;
+            background: white;
+            color: #555;
+            padding: 11px 19px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #171329;
+            color: white;
+            border-color: #171329;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 230px;
+            padding: 12px 16px 12px 42px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            background: white;
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            border-color: #6c4fd3;
+            box-shadow: 0 0 0 3px rgba(108,79,211,.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 11px;
+        }
+
+        /* ================= GALLERY GRID ================= */
+
+        .gallery-grid {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            height: 280px;
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            background: #ddd;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
+            transition: .35s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 35px rgba(0,0,0,.15);
+        }
+
+        .gallery-item.large {
+            grid-row: span 2;
+            height: 580px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: .5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            padding: 22px;
+
+            background:
+                linear-gradient(
+                    transparent 35%,
+                    rgba(0,0,0,.82)
+                );
+
+            color: white;
+            opacity: .92;
+        }
+
+        .image-overlay span {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffcf5a;
+            margin-bottom: 6px;
+        }
+
+        .image-overlay h3 {
+            font-size: 20px;
+        }
+
+        .view-icon {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255,255,255,.9);
+            color: #171329;
+            font-size: 18px;
+
+            transform: scale(.8);
+            opacity: 0;
+            transition: .3s;
+        }
+
+        .gallery-item:hover .view-icon {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* ================= NO RESULTS ================= */
+
+        #noResults {
+            display: none;
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 50px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        #noResults h3 {
+            margin-bottom: 8px;
+        }
+
+        #noResults p {
+            color: #777;
+        }
+
+        /* ================= GALLERY STATS ================= */
+
+        .gallery-stats {
+            max-width: 900px;
+            margin: 55px auto 0;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .stat {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 28px;
+            color: #5a3fc0;
+            margin-bottom: 5px;
+        }
+
+        .stat span {
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* ================= LIGHTBOX ================= */
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+
+            background: rgba(10,8,20,.94);
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+        }
+
+        .lightbox.show {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 72vh;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .lightbox-title {
+            color: white;
+            margin-top: 15px;
+        }
+
+        .lightbox-title h3 {
+            font-size: 21px;
+        }
+
+        .lightbox-title p {
+            color: #aaa;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 25px;
+            right: 30px;
+
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+
+            background: white;
+            color: #171329;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .lightbox-counter {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .lightbox-nav {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            transform: translateX(-50%);
+
+            display: flex;
+            gap: 10px;
+        }
+
+        .lightbox-nav button {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            background: white;
+            color: #171329;
+            font-size: 18px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #171329;
+            color: white;
+            padding: 30px 7%;
+            text-align: center;
+        }
+
+        footer p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.large {
+                height: 280px;
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 750px) {
+
+            header {
+                padding: 17px 5%;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 67px;
+                left: 0;
+                width: 100%;
+
+                display: none;
+                flex-direction: column;
+
+                background: #171329;
+                padding: 25px;
+            }
+
+            nav.show {
+                display: flex;
+            }
+
+            .gallery-section {
+                padding: 55px 5%;
+            }
+
+            .gallery-toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .filters {
+                justify-content: center;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item,
+            .gallery-item.large {
+                height: 300px;
+            }
+
+            .gallery-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2 {
+                font-size: 30px;
+            }
+
+            .lightbox {
+                padding: 15px;
+            }
+
+            .close-btn {
+                right: 15px;
+                top: 15px;
+            }
+
+            .lightbox-counter {
+                left: 15px;
+                top: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        AURA <span>2026</span> FEST
+    </div>
+
+    <button
+        class="menu-btn"
+        onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <nav id="navMenu">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="events.html">
+            Events
+        </a>
+
+        <a href="schedule.html">
+            Schedule
+        </a>
+
+        <a href="gallery.html" class="active">
+            Gallery
+        </a>
+
+        <a href="registration.html">
+            Registration
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+        <a
+            href="registration.html"
+            class="register-btn">
+            Register Now
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div>
+
+        <div class="hero-label">
+            AURA 2026 • MOMENTS
+        </div>
+
+        <h1>Event Gallery</h1>
+
+        <p>
+            Explore memorable moments from technical,
+            cultural, creative and fun activities.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= GALLERY ================= -->
+
+<section class="gallery-section">
+
+    <div class="section-heading">
+
+        <span>Captured Moments</span>
+
+        <h2>Inside AURA 2026</h2>
+
+        <p>
+            Browse event moments and discover the energy
+            behind our college celebration.
+        </p>
+
+    </div>
+
+
+    <!-- TOOLBAR -->
+
+    <div class="gallery-toolbar">
+
+        <div class="filters">
+
+            <button
+                class="filter-btn active"
+                data-category="all">
+                All
+            </button>
+
+            <button
+                class="filter-btn"
+                data-category="technical">
+                Technical
+            </button>
+
+            <button
+                class="filter-btn"
+                data-category="cultural">
+                Cultural
+            </button>
+
+            <button
+                class="filter-btn"
+                data-category="sports">
+                Sports
+            </button>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                type="text"
+                id="gallerySearch"
+                placeholder="Search gallery..."
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- GALLERY GRID -->
+
+    <div class="gallery-grid" id="galleryGrid">
+
+
+        <!-- IMAGE 1 -->
+
+        <div
+            class="gallery-item large"
+            data-category="technical"
+            data-title="Innovation Showcase">
+
+            <img
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=85"
+                alt="Students working on technology">
+
+            <div class="image-overlay">
+
+                <span>Technical</span>
+
+                <h3>Innovation Showcase</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE 2 -->
+
+        <div
+            class="gallery-item"
+            data-category="cultural"
+            data-title="Stage Performance">
+
+            <img
+                src="https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=800&q=85"
+                alt="Stage performance">
+
+            <div class="image-overlay">
+
+                <span>Cultural</span>
+
+                <h3>Stage Performance</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE 3 -->
+
+        <div
+            class="gallery-item"
+            data-category="sports"
+            data-title="Sports Championship">
+
+            <img
+                src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=85"
+                alt="Sports event">
+
+            <div class="image-overlay">
+
+                <span>Sports</span>
+
+                <h3>Sports Championship</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE 4 -->
+
+        <div
+            class="gallery-item"
+            data-category="technical"
+            data-title="Coding Challenge">
+
+            <img
+                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=85"
+                alt="Coding challenge">
+
+            <div class="image-overlay">
+
+                <span>Technical</span>
+
+                <h3>Coding Challenge</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE 5 -->
+
+        <div
+            class="gallery-item"
+            data-category="cultural"
+            data-title="Creative Celebration">
+
+            <img
+                src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=85"
+                alt="College celebration">
+
+            <div class="image-overlay">
+
+                <span>Cultural</span>
+
+                <h3>Creative Celebration</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE 6 -->
+
+        <div
+            class="gallery-item"
+            data-category="sports"
+            data-title="Team Spirit">
+
+            <img
+                src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&w=800&q=85"
+                alt="Team sports">
+
+            <div class="image-overlay">
+
+                <span>Sports</span>
+
+                <h3>Team Spirit</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE 7 -->
+
+        <div
+            class="gallery-item"
+            data-category="technical"
+            data-title="Idea Arena">
+
+            <img
+                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=85"
+                alt="Students presenting ideas">
+
+            <div class="image-overlay">
+
+                <span>Technical</span>
+
+                <h3>Idea Arena</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- IMAGE 8 -->
+
+        <div
+            class="gallery-item"
+            data-category="cultural"
+            data-title="Music Night">
+
+            <img
+                src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=85"
+                alt="Music festival">
+
+            <div class="image-overlay">
+
+                <span>Cultural</span>
+
+                <h3>Music Night</h3>
+
+            </div>
+
+            <div class="view-icon">
+                ⛶
+            </div>
+
+        </div>
+
+
+        <!-- NO RESULTS -->
+
+        <div id="noResults">
+
+            <h3>
+                No gallery moments found
+            </h3>
+
+            <p>
+                Try another category or search keyword.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="gallery-stats">
+
+        <div class="stat">
+
+            <strong>08+</strong>
+
+            <span>
+                Featured Moments
+            </span>
+
+        </div>
+
+        <div class="stat">
+
+            <strong>06</strong>
+
+            <span>
+                Major Events
+            </span>
+
+        </div>
+
+        <div class="stat">
+
+            <strong>03</strong>
+
+            <span>
+                Days of Celebration
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LIGHTBOX ================= -->
+
+<div
+    class="lightbox"
+    id="lightbox">
+
+    <div class="lightbox-counter" id="counter">
+        1 / 8
+    </div>
+
+    <button
+        class="close-btn"
+        onclick="closeLightbox()">
+        ×
+    </button>
+
+
+    <div class="lightbox-content">
+
+        <img
+            id="lightboxImage"
+            src=""
+            alt="Gallery preview">
+
+        <div class="lightbox-title">
+
+            <h3 id="lightboxTitle">
+                Event
+            </h3>
+
+            <p id="lightboxCategory">
+                Category
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="lightbox-nav">
+
+        <button onclick="previousImage()">
+            ←
+        </button>
+
+        <button onclick="nextImage()">
+            →
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 AURA Fest | Prathyusha Engineering College
+    </p>
+
+    <p style="margin-top:8px;">
+        Responsive College Event Management Portal
+    </p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    /* ================= MOBILE MENU ================= */
+
+    function toggleMenu() {
+
+        document
+            .getElementById("navMenu")
+            .classList.toggle("show");
+
+    }
+
+
+    /* ================= GALLERY ELEMENTS ================= */
+
+    const galleryItems =
+        Array.from(
+            document.querySelectorAll(".gallery-item")
+        );
+
+    const filterButtons =
+        document.querySelectorAll(".filter-btn");
+
+    const searchInput =
+        document.getElementById("gallerySearch");
+
+    const noResults =
+        document.getElementById("noResults");
+
+
+    let currentCategory = "all";
+
+
+    /* ================= FILTER FUNCTION ================= */
+
+    function filterGallery() {
+
+        const searchText =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+        let visibleCount = 0;
+
+
+        galleryItems.forEach(item => {
+
+            const category =
+                item.dataset.category;
+
+            const title =
+                item.dataset.title.toLowerCase();
+
+
+            const categoryMatch =
+                currentCategory === "all" ||
+                category === currentCategory;
+
+
+            const searchMatch =
+                title.includes(searchText);
+
+
+            if (categoryMatch && searchMatch) {
+
+                item.style.display = "block";
+                visibleCount++;
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+
+        noResults.style.display =
+            visibleCount === 0
+                ? "block"
+                : "none";
+
+    }
+
+
+    /* ================= CATEGORY BUTTONS ================= */
+
+    filterButtons.forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            filterButtons.forEach(btn => {
+
+                btn.classList.remove("active");
+
+            });
+
+            this.classList.add("active");
+
+            currentCategory =
+                this.dataset.category;
+
+            filterGallery();
+
+        });
+
+    });
+
+
+    /* ================= SEARCH ================= */
+
+    searchInput.addEventListener(
+        "input",
+        filterGallery
+    );
+
+
+    /* ================= LIGHTBOX ================= */
+
+    const lightbox =
+        document.getElementById("lightbox");
+
+    const lightboxImage =
+        document.getElementById("lightboxImage");
+
+    const lightboxTitle =
+        document.getElementById("lightboxTitle");
+
+    const lightboxCategory =
+        document.getElementById("lightboxCategory");
+
+    const counter =
+        document.getElementById("counter");
+
+
+    let currentIndex = 0;
+
+
+    function openLightbox(index) {
+
+        currentIndex = index;
+
+        const item =
+            galleryItems[currentIndex];
+
+        const image =
+            item.querySelector("img");
+
+        lightboxImage.src =
+            image.src;
+
+        lightboxTitle.textContent =
+            item.dataset.title;
+
+        lightboxCategory.textContent =
+            item.dataset.category
+                .charAt(0)
+                .toUpperCase() +
+            item.dataset.category.slice(1);
+
+        counter.textContent =
+            `${currentIndex + 1} / ${galleryItems.length}`;
+
+        lightbox.classList.add("show");
+
+        document.body.style.overflow =
+            "hidden";
+
+    }
+
+
+    /* ================= CLICK GALLERY ================= */
+
+    galleryItems.forEach((item, index) => {
+
+        item.addEventListener("click", () => {
+
+            openLightbox(index);
+
+        });
+
+    });
+
+
+    /* ================= CLOSE ================= */
+
+    function closeLightbox() {
+
+        lightbox.classList.remove("show");
+
+        document.body.style.overflow =
+            "auto";
+
+    }
+
+
+    /* ================= NEXT ================= */
+
+    function nextImage() {
+
+        currentIndex++;
+
+        if (
+            currentIndex >= galleryItems.length
+        ) {
+
+            currentIndex = 0;
+
+        }
+
+        openLightbox(currentIndex);
+
+    }
+
+
+    /* ================= PREVIOUS ================= */
+
+    function previousImage() {
+
+        currentIndex--;
+
+        if (currentIndex < 0) {
+
+            currentIndex =
+                galleryItems.length - 1;
+
+        }
+
+        openLightbox(currentIndex);
+
+    }
+
+
+    /* ================= KEYBOARD SUPPORT ================= */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                !lightbox.classList.contains("show")
+            ) {
+                return;
+            }
+
+
+            if (event.key === "Escape") {
+
+                closeLightbox();
+
+            }
+
+
+            if (event.key === "ArrowRight") {
+
+                nextImage();
+
+            }
+
+
+            if (event.key === "ArrowLeft") {
+
+                previousImage();
+
+            }
+
+        }
+    );
+
+
+    /* ================= CLICK OUTSIDE ================= */
+
+    lightbox.addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === lightbox) {
+
+                closeLightbox();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Events | AURA 2026 Fest</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f5ff;
+            color: #222;
+        }
+
+        /* HEADER */
+        header {
+            background: #171329;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ffb703;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #ffb703;
+        }
+
+        .register-btn {
+            background: #ffb703;
+            color: #171329 !important;
+            padding: 11px 18px;
+            border-radius: 25px;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            min-height: 320px;
+            background:
+                linear-gradient(135deg, rgba(23,19,41,.95), rgba(71,48,120,.9)),
+                radial-gradient(circle at top right, #ffb703, transparent 30%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 50px 20px;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(38px, 6vw, 68px);
+            margin-bottom: 15px;
+        }
+
+        .page-hero p {
+            color: #ddd;
+            font-size: 17px;
+        }
+
+        /* EVENTS SECTION */
+        .events-section {
+            padding: 70px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading span {
+            color: #e85d04;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            margin: 10px 0;
+            color: #171329;
+        }
+
+        .section-heading p {
+            color: #666;
+        }
+
+        /* FILTER BUTTONS */
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            border: 1px solid #ddd;
+            background: white;
+            padding: 12px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #555;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #171329;
+            color: white;
+            border-color: #171329;
+        }
+
+        /* EVENT GRID */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+            transition: 0.35s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(0,0,0,.13);
+        }
+
+        .event-image {
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+        }
+
+        .technical {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        }
+
+        .cultural {
+            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+        }
+
+        .sports {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        }
+
+        .event-content {
+            padding: 24px;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            background: #f1efff;
+            color: #5a3fc0;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .event-content h3 {
+            margin: 14px 0 10px;
+            font-size: 23px;
+            color: #171329;
+        }
+
+        .event-content p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .event-info {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-bottom: 18px;
+        }
+
+        .event-info div {
+            color: #555;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .event-info strong {
+            color: #222;
+        }
+
+        .event-register {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: #171329;
+            color: white;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .event-register:hover {
+            background: #e85d04;
+        }
+
+        /* NO RESULTS */
+        #noResults {
+            display: none;
+            text-align: center;
+            color: #777;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #171329;
+            color: white;
+            padding: 30px 7%;
+            text-align: center;
+        }
+
+        footer p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 950px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 16px 5%;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #171329;
+                display: none;
+                flex-direction: column;
+                padding: 25px;
+            }
+
+            nav.show {
+                display: flex;
+            }
+
+            .events-section {
+                padding: 50px 5%;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="logo">
+            AURA <span>2026</span> FEST
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <nav id="navMenu">
+
+            <a href="index.html">Home</a>
+
+            <a href="events.html" class="active">
+                Events
+            </a>
+
+            <a href="schedule.html">
+                Schedule
+            </a>
+
+            <a href="gallery.html">
+                Gallery
+            </a>
+
+            <a href="registration.html">
+                Registration
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+            <a href="registration.html" class="register-btn">
+                Register Now
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+
+        <div>
+            <h1>Explore Events</h1>
+
+            <p>
+                Discover exciting technical, cultural and sports events
+                at AURA 2026.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- EVENTS -->
+    <section class="events-section">
+
+        <div class="section-heading">
+
+            <span>What's Happening</span>
+
+            <h2>Choose Your Event</h2>
+
+            <p>
+                Select a category to explore the events you love.
+            </p>
+
+        </div>
+
+
+        <!-- FILTER BUTTONS -->
+        <div class="filters">
+
+            <button
+                class="filter-btn active"
+                data-filter="all">
+                All Events
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="technical">
+                Technical
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="cultural">
+                Cultural
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="sports">
+                Sports & Fun
+            </button>
+
+        </div>
+
+
+        <!-- EVENT CARDS -->
+        <div class="events-grid">
+
+            <!-- EVENT 1 -->
+            <div class="event-card" data-category="technical">
+
+                <div class="event-image technical">
+                    💻
+                </div>
+
+                <div class="event-content">
+
+                    <span class="category">
+                        Technical
+                    </span>
+
+                    <h3>Code Clash</h3>
+
+                    <p>
+                        Test your programming skills through
+                        challenging coding problems and logical puzzles.
+                    </p>
+
+                    <div class="event-info">
+
+                        <div>
+                            📅 <strong>12 Oct 2026</strong>
+                        </div>
+
+                        <div>
+                            🕘 <strong>10:00 AM</strong>
+                        </div>
+
+                        <div>
+                            📍 <strong>Innovation Lab</strong>
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="registration.html?event=Code%20Clash"
+                        class="event-register">
+                        Register for Event
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 2 -->
+            <div class="event-card" data-category="technical">
+
+                <div class="event-image technical">
+                    💡
+                </div>
+
+                <div class="event-content">
+
+                    <span class="category">
+                        Technical
+                    </span>
+
+                    <h3>Idea Arena</h3>
+
+                    <p>
+                        Present innovative ideas and transform creative
+                        concepts into meaningful solutions.
+                    </p>
+
+                    <div class="event-info">
+
+                        <div>
+                            📅 <strong>12 Oct 2026</strong>
+                        </div>
+
+                        <div>
+                            🕑 <strong>2:00 PM</strong>
+                        </div>
+
+                        <div>
+                            📍 <strong>Seminar Hall</strong>
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="registration.html?event=Idea%20Arena"
+                        class="event-register">
+                        Register for Event
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 3 -->
+            <div class="event-card" data-category="cultural">
+
+                <div class="event-image cultural">
+                    🎤
+                </div>
+
+                <div class="event-content">
+
+                    <span class="category">
+                        Cultural
+                    </span>
+
+                    <h3>Rhythm Rush</h3>
+
+                    <p>
+                        Bring your energy to the stage with music,
+                        singing and unforgettable performances.
+                    </p>
+
+                    <div class="event-info">
+
+                        <div>
+                            📅 <strong>13 Oct 2026</strong>
+                        </div>
+
+                        <div>
+                            🕘 <strong>10:30 AM</strong>
+                        </div>
+
+                        <div>
+                            📍 <strong>Open Auditorium</strong>
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="registration.html?event=Rhythm%20Rush"
+                        class="event-register">
+                        Register for Event
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 4 -->
+            <div class="event-card" data-category="cultural">
+
+                <div class="event-image cultural">
+                    🎨
+                </div>
+
+                <div class="event-content">
+
+                    <span class="category">
+                        Cultural
+                    </span>
+
+                    <h3>Canvas Quest</h3>
+
+                    <p>
+                        Express your imagination through colours,
+                        creativity and artistic storytelling.
+                    </p>
+
+                    <div class="event-info">
+
+                        <div>
+                            📅 <strong>13 Oct 2026</strong>
+                        </div>
+
+                        <div>
+                            🕐 <strong>1:00 PM</strong>
+                        </div>
+
+                        <div>
+                            📍 <strong>Art Studio</strong>
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="registration.html?event=Canvas%20Quest"
+                        class="event-register">
+                        Register for Event
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 5 -->
+            <div class="event-card" data-category="sports">
+
+                <div class="event-image sports">
+                    🏆
+                </div>
+
+                <div class="event-content">
+
+                    <span class="category">
+                        Sports & Fun
+                    </span>
+
+                    <h3>Mini League</h3>
+
+                    <p>
+                        Compete with your friends and showcase your
+                        teamwork, speed and sportsmanship.
+                    </p>
+
+                    <div class="event-info">
+
+                        <div>
+                            📅 <strong>14 Oct 2026</strong>
+                        </div>
+
+                        <div>
+                            🕘 <strong>9:00 AM</strong>
+                        </div>
+
+                        <div>
+                            📍 <strong>College Ground</strong>
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="registration.html?event=Mini%20League"
+                        class="event-register">
+                        Register for Event
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENT 6 -->
+            <div class="event-card" data-category="sports">
+
+                <div class="event-image sports">
+                    🎯
+                </div>
+
+                <div class="event-content">
+
+                    <span class="category">
+                        Sports & Fun
+                    </span>
+
+                    <h3>Fun Fiesta</h3>
+
+                    <p>
+                        Enjoy exciting games, fun challenges and
+                        entertaining activities with your friends.
+                    </p>
+
+                    <div class="event-info">
+
+                        <div>
+                            📅 <strong>14 Oct 2026</strong>
+                        </div>
+
+                        <div>
+                            🕐 <strong>2:00 PM</strong>
+                        </div>
+
+                        <div>
+                            📍 <strong>Main Block</strong>
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="registration.html?event=Fun%20Fiesta"
+                        class="event-register">
+                        Register for Event
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div id="noResults">
+                <h3>No events found</h3>
+                <p>Try selecting another category.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © 2026 AURA Fest | Prathyusha Engineering College
+        </p>
+
+        <p style="margin-top:8px;">
+            Front-End Mini Project
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        /* MOBILE MENU */
+
+        function toggleMenu() {
+
+            document
+                .getElementById("navMenu")
+                .classList.toggle("show");
+
+        }
+
+
+        /* EVENT FILTER */
+
+        const filterButtons =
+            document.querySelectorAll(".filter-btn");
+
+        const eventCards =
+            document.querySelectorAll(".event-card");
+
+        const noResults =
+            document.getElementById("noResults");
+
+
+        filterButtons.forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                /* Remove active from all buttons */
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove("active");
+                });
+
+                /* Add active to clicked button */
+
+                this.classList.add("active");
+
+
+                const selectedCategory =
+                    this.getAttribute("data-filter");
+
+                let visibleCount = 0;
+
+
+                /* Check every event */
+
+                eventCards.forEach(card => {
+
+                    const cardCategory =
+                        card.getAttribute("data-category");
+
+
+                    if (
+                        selectedCategory === "all" ||
+                        cardCategory === selectedCategory
+                    ) {
+
+                        card.style.display = "block";
+                        visibleCount++;
+
+                    } else {
+
+                        card.style.display = "none";
+
+                    }
+
+                });
+
+
+                /* Show no-result message if needed */
+
+                if (visibleCount === 0) {
+
+                    noResults.style.display = "block";
+
+                } else {
+
+                    noResults.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

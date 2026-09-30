@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registration | AURA 2026 Fest</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, #eee9ff 0, transparent 30%),
+                #f7f5ff;
+            color: #1d1930;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #171329;
+            padding: 17px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,.15);
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ffb703;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #d8d5e3;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #ffb703;
+        }
+
+        .register-btn {
+            background: #ffb703;
+            color: #171329 !important;
+            padding: 11px 18px;
+            border-radius: 25px;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 330px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 55px 7%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(23,19,41,.98),
+                    rgba(77,52,128,.94)
+                );
+        }
+
+        .hero-label {
+            color: #ffb703;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 65px);
+            margin: 12px 0;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #ddd9e8;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+
+        /* ================= REGISTRATION AREA ================= */
+
+        .registration-section {
+            padding: 70px 7%;
+        }
+
+        .registration-wrapper {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* ================= INFO CARD ================= */
+
+        .info-card {
+            background: #171329;
+            color: white;
+            border-radius: 24px;
+            padding: 35px;
+            position: sticky;
+            top: 100px;
+            overflow: hidden;
+        }
+
+        .info-card::after {
+            content: "";
+            width: 180px;
+            height: 180px;
+            position: absolute;
+            right: -80px;
+            bottom: -80px;
+            border-radius: 50%;
+            background: rgba(255,183,3,.18);
+        }
+
+        .info-card .small-title {
+            color: #ffb703;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .info-card h2 {
+            font-size: 32px;
+            margin: 12px 0 15px;
+        }
+
+        .info-card > p {
+            color: #c4c0cf;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .benefits {
+            margin-top: 28px;
+        }
+
+        .benefit {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            align-items: flex-start;
+        }
+
+        .benefit-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: rgba(255,183,3,.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .benefit strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .benefit span {
+            color: #aaa6b7;
+            font-size: 12px;
+        }
+
+        /* ================= FORM CARD ================= */
+
+        .form-card {
+            background: white;
+            border-radius: 24px;
+            padding: 38px;
+            box-shadow: 0 15px 45px rgba(35,25,70,.10);
+            border: 1px solid #eeeaf7;
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        label span {
+            color: #e85d04;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #ddd9e8;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            background: #fff;
+            color: #333;
+            transition: .3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #6c4fd3;
+            box-shadow: 0 0 0 3px rgba(108,79,211,.10);
+        }
+
+        .error {
+            display: block;
+            color: #dc2626;
+            font-size: 11px;
+            margin-top: 6px;
+            min-height: 13px;
+        }
+
+        .terms {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 8px 0 22px;
+        }
+
+        .terms input {
+            width: auto;
+            margin-top: 3px;
+        }
+
+        .terms label {
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: #171329;
+            color: white;
+            padding: 16px;
+            border-radius: 11px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .submit-btn:hover {
+            background: #e85d04;
+            transform: translateY(-2px);
+        }
+
+        /* ================= SUCCESS ================= */
+
+        #successBox {
+            display: none;
+            max-width: 1100px;
+            margin: 35px auto 0;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 45px rgba(35,25,70,.10);
+            text-align: center;
+            border: 1px solid #e8e2f8;
+        }
+
+        .success-icon {
+            width: 75px;
+            height: 75px;
+            margin: auto;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #16a34a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+        }
+
+        #successBox h2 {
+            margin: 18px 0 8px;
+            font-size: 30px;
+        }
+
+        #successBox > p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .ticket {
+            max-width: 650px;
+            margin: 25px auto;
+            padding: 25px;
+            background: #f7f5ff;
+            border: 1px dashed #a99bd8;
+            border-radius: 15px;
+            text-align: left;
+        }
+
+        .ticket-title {
+            color: #5a3fc0;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 11px 0;
+            border-bottom: 1px solid #e5e1f0;
+            font-size: 14px;
+        }
+
+        .ticket-row:last-child {
+            border-bottom: none;
+        }
+
+        .ticket-row span:first-child {
+            color: #777;
+        }
+
+        .ticket-row strong {
+            text-align: right;
+        }
+
+        .new-registration {
+            border: none;
+            background: #171329;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 9px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .new-registration:hover {
+            background: #e85d04;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #171329;
+            color: white;
+            padding: 30px 7%;
+            text-align: center;
+        }
+
+        footer p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 67px;
+                left: 0;
+                width: 100%;
+                background: #171329;
+                display: none;
+                flex-direction: column;
+                padding: 25px;
+            }
+
+            nav.show {
+                display: flex;
+            }
+
+            .registration-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .info-card {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .registration-section {
+                padding: 45px 5%;
+            }
+
+            .form-card,
+            .info-card {
+                padding: 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .hero {
+                min-height: 290px;
+                padding: 45px 5%;
+            }
+
+            .ticket-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .ticket-row strong {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        AURA <span>2026</span> FEST
+    </div>
+
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <nav id="navMenu">
+
+        <a href="index.html">Home</a>
+
+        <a href="events.html">Events</a>
+
+        <a href="schedule.html">Schedule</a>
+
+        <a href="gallery.html">Gallery</a>
+
+        <a href="registration.html" class="active">
+            Registration
+        </a>
+
+        <a href="contact.html">Contact</a>
+
+        <a href="registration.html" class="register-btn">
+            Register Now
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div>
+
+        <div class="hero-label">
+            AURA 2026 • OFFICIAL REGISTRATION
+        </div>
+
+        <h1>Join The Celebration</h1>
+
+        <p>
+            Secure your place at AURA 2026 and be part of
+            three days filled with innovation, creativity,
+            competition and fun.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REGISTRATION ================= -->
+
+<section class="registration-section">
+
+    <div class="registration-wrapper">
+
+
+        <!-- INFORMATION -->
+
+        <div class="info-card">
+
+            <div class="small-title">
+                Why Register?
+            </div>
+
+            <h2>
+                Your AURA journey starts here.
+            </h2>
+
+            <p>
+                Complete the registration form with your
+                details and choose the event you want to
+                participate in.
+            </p>
+
+
+            <div class="benefits">
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        🎟️
+                    </div>
+
+                    <div>
+                        <strong>Instant Registration ID</strong>
+                        <span>
+                            Receive a unique registration reference.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        📅
+                    </div>
+
+                    <div>
+                        <strong>Event Access</strong>
+                        <span>
+                            Choose from multiple fest activities.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        ⚡
+                    </div>
+
+                    <div>
+                        <strong>Quick & Easy</strong>
+                        <span>
+                            Complete your registration in minutes.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        🏆
+                    </div>
+
+                    <div>
+                        <strong>Compete & Connect</strong>
+                        <span>
+                            Meet students and showcase your talent.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <div class="form-card" id="formCard">
+
+            <div class="form-header">
+
+                <h2>Participant Details</h2>
+
+                <p>
+                    Fields marked with <b>*</b> are required.
+                </p>
+
+            </div>
+
+
+            <form id="registrationForm" novalidate>
+
+
+                <!-- NAME + EMAIL -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Full Name <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                        >
+
+                        <small
+                            class="error"
+                            id="nameError">
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Email Address <span>*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="example@email.com"
+                        >
+
+                        <small
+                            class="error"
+                            id="emailError">
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MOBILE + DEPARTMENT -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Mobile Number <span>*</span>
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            maxlength="10"
+                            placeholder="10-digit mobile number"
+                        >
+
+                        <small
+                            class="error"
+                            id="mobileError">
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Department <span>*</span>
+                        </label>
+
+                        <select id="department">
+
+                            <option value="">
+                                Select Department
+                            </option>
+
+                            <option>CSE</option>
+                            <option>IT</option>
+                            <option>ECE</option>
+                            <option>EEE</option>
+                            <option>Mechanical</option>
+                            <option>Civil</option>
+                            <option>AI & DS</option>
+                            <option>Other</option>
+
+                        </select>
+
+                        <small
+                            class="error"
+                            id="departmentError">
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- YEAR + EVENT -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Academic Year <span>*</span>
+                        </label>
+
+                        <select id="year">
+
+                            <option value="">
+                                Select Year
+                            </option>
+
+                            <option>1st Year</option>
+                            <option>2nd Year</option>
+                            <option>3rd Year</option>
+                            <option>4th Year</option>
+
+                        </select>
+
+                        <small
+                            class="error"
+                            id="yearError">
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Select Event <span>*</span>
+                        </label>
+
+                        <select id="event">
+
+                            <option value="">
+                                Select Event
+                            </option>
+
+                            <option>Code Clash</option>
+                            <option>Idea Arena</option>
+                            <option>Rhythm Rush</option>
+                            <option>Canvas Quest</option>
+                            <option>Mini League</option>
+                            <option>Fun Fiesta</option>
+
+                        </select>
+
+                        <small
+                            class="error"
+                            id="eventError">
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TERMS -->
+
+                <div class="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                    >
+
+                    <label for="terms">
+                        I confirm that the information provided
+                        is correct and I agree to participate in
+                        the selected AURA 2026 event.
+                    </label>
+
+                </div>
+
+                <small
+                    class="error"
+                    id="termsError">
+                </small>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    Complete Registration →
+                    
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SUCCESS BOX ================= -->
+
+    <div id="successBox">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>Registration Successful!</h2>
+
+        <p>
+            Your AURA 2026 registration has been created successfully.
+        </p>
+
+
+        <div class="ticket">
+
+            <div class="ticket-title">
+                Registration Confirmation
+            </div>
+
+            <div class="ticket-row">
+
+                <span>Registration ID</span>
+
+                <strong id="resultId">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="ticket-row">
+
+                <span>Participant</span>
+
+                <strong id="resultName">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="ticket-row">
+
+                <span>Department</span>
+
+                <strong id="resultDepartment">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="ticket-row">
+
+                <span>Selected Event</span>
+
+                <strong id="resultEvent">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="ticket-row">
+
+                <span>Fest Date</span>
+
+                <strong id="resultDate">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="new-registration"
+            onclick="newRegistration()">
+
+            + New Registration
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 AURA Fest | Prathyusha Engineering College
+    </p>
+
+    <p style="margin-top:8px;">
+        Responsive College Event Portal • Front-End Mini Project
+    </p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    /* ================= MOBILE MENU ================= */
+
+    function toggleMenu() {
+
+        document
+            .getElementById("navMenu")
+            .classList.toggle("show");
+
+    }
+
+
+    /* ================= URL EVENT AUTO SELECT ================= */
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const selectedEvent =
+        params.get("event");
+
+    if (selectedEvent) {
+
+        const eventDropdown =
+            document.getElementById("event");
+
+        eventDropdown.value =
+            selectedEvent;
+
+    }
+
+
+    /* ================= FORM ================= */
+
+    const form =
+        document.getElementById("registrationForm");
+
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        /* Get values */
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const mobile =
+            document.getElementById("mobile").value.trim();
+
+        const department =
+            document.getElementById("department").value;
+
+        const year =
+            document.getElementById("year").value;
+
+        const selectedEvent =
+            document.getElementById("event").value;
+
+        const terms =
+            document.getElementById("terms").checked;
+
+
+        /* Clear previous errors */
+
+        document.querySelectorAll(".error")
+            .forEach(error => {
+                error.textContent = "";
+            });
+
+
+        let valid = true;
+
+
+        /* NAME */
+
+        if (name === "") {
+
+            document.getElementById("nameError")
+                .textContent =
+                "Please enter your full name.";
+
+            valid = false;
+
+        } else if (name.length < 3) {
+
+            document.getElementById("nameError")
+                .textContent =
+                "Name must contain at least 3 characters.";
+
+            valid = false;
+
+        }
+
+
+        /* EMAIL */
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (email === "") {
+
+            document.getElementById("emailError")
+                .textContent =
+                "Please enter your email address.";
+
+            valid = false;
+
+        } else if (!emailPattern.test(email)) {
+
+            document.getElementById("emailError")
+                .textContent =
+                "Please enter a valid email address.";
+
+            valid = false;
+
+        }
+
+
+        /* MOBILE */
+
+        const mobilePattern =
+            /^[6-9][0-9]{9}$/;
+
+
+        if (mobile === "") {
+
+            document.getElementById("mobileError")
+                .textContent =
+                "Please enter your mobile number.";
+
+            valid = false;
+
+        } else if (!mobilePattern.test(mobile)) {
+
+            document.getElementById("mobileError")
+                .textContent =
+                "Enter a valid 10-digit Indian mobile number.";
+
+            valid = false;
+
+        }
+
+
+        /* DEPARTMENT */
+
+        if (department === "") {
+
+            document.getElementById("departmentError")
+                .textContent =
+                "Please select your department.";
+
+            valid = false;
+
+        }
+
+
+        /* YEAR */
+
+        if (year === "") {
+
+            document.getElementById("yearError")
+                .textContent =
+                "Please select your academic year.";
+
+            valid = false;
+
+        }
+
+
+        /* EVENT */
+
+        if (selectedEvent === "") {
+
+            document.getElementById("eventError")
+                .textContent =
+                "Please select an event.";
+
+            valid = false;
+
+        }
+
+
+        /* TERMS */
+
+        if (!terms) {
+
+            document.getElementById("termsError")
+                .textContent =
+                "Please accept the participation confirmation.";
+
+            valid = false;
+
+        }
+
+
+        /* STOP IF INVALID */
+
+        if (!valid) {
+
+            return;
+
+        }
+
+
+        /* ================= GENERATE ID ================= */
+
+        const randomNumber =
+            Math.floor(1000 + Math.random() * 9000);
+
+        const registrationId =
+            "AURA26-" + randomNumber;
+
+
+        /* ================= DISPLAY RESULT ================= */
+
+        document.getElementById("resultId")
+            .textContent = registrationId;
+
+        document.getElementById("resultName")
+            .textContent = name;
+
+        document.getElementById("resultDepartment")
+            .textContent =
+            department + " • " + year;
+
+        document.getElementById("resultEvent")
+            .textContent = selectedEvent;
+
+
+        /* EVENT DATE */
+
+        let eventDate = "12–14 October 2026";
+
+        if (
+            selectedEvent === "Rhythm Rush" ||
+            selectedEvent === "Canvas Quest"
+        ) {
+            eventDate = "13 October 2026";
+        }
+
+        if (
+            selectedEvent === "Mini League" ||
+            selectedEvent === "Fun Fiesta"
+        ) {
+            eventDate = "14 October 2026";
+        }
+
+        document.getElementById("resultDate")
+            .textContent = eventDate;
+
+
+        /* SAVE DEMO REGISTRATION */
+
+        const registrationData = {
+
+            id: registrationId,
+            name: name,
+            email: email,
+            mobile: mobile,
+            department: department,
+            year: year,
+            event: selectedEvent,
+            date: eventDate
+
+        };
+
+
+        localStorage.setItem(
+            "auraRegistration",
+            JSON.stringify(registrationData)
+        );
+
+
+        /* HIDE FORM */
+
+        document.getElementById("formCard")
+            .style.display = "none";
+
+
+        /* SHOW SUCCESS */
+
+        document.getElementById("successBox")
+            .style.display = "block";
+
+
+        /* SCROLL */
+
+        document.getElementById("successBox")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    });
+
+
+    /* ================= NEW REGISTRATION ================= */
+
+    function newRegistration() {
+
+        form.reset();
+
+        document.getElementById("successBox")
+            .style.display = "none";
+
+        document.getElementById("formCard")
+            .style.display = "block";
+
+        document.querySelectorAll(".error")
+            .forEach(error => {
+                error.textContent = "";
+            });
+
+        window.scrollTo({
+            top: 450,
+            behavior: "smooth"
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AURA 2026 | College Event Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #faf8fc;
+            color: #18151f;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1180px;
+            margin: auto;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e8e1ed;
+        }
+
+        .navbar {
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(135deg,#6d28d9,#db2777);
+        }
+
+        .logo-text strong {
+            display: block;
+            font-family: Georgia, serif;
+            font-size: 21px;
+            line-height: 1;
+        }
+
+        .logo-text small {
+            font-size: 8px;
+            letter-spacing: 2px;
+            color: #77707e;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        nav a {
+            font-size: 13px;
+            font-weight: bold;
+            color: #625b68;
+            transition: 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #6d28d9;
+        }
+
+        .register-btn {
+            background: #18151f;
+            color: white !important;
+            padding: 11px 17px;
+            border-radius: 10px;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: none;
+            font-size: 27px;
+            cursor: pointer;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(219,39,119,0.45),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 65% 80%,
+                    rgba(109,40,217,0.5),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    125deg,
+                    #17121e,
+                    #352047,
+                    #201428
+                );
+        }
+
+        .hero-content {
+            max-width: 760px;
+        }
+
+        .eyebrow {
+            color: #d2a9ff;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(50px,7vw,85px);
+            line-height: 0.98;
+            letter-spacing: -2px;
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: #e5b0ff;
+        }
+
+        .hero p {
+            max-width: 620px;
+            color: #d9cfdf;
+            font-size: 17px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 21px;
+            border-radius: 11px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .primary-btn {
+            background: linear-gradient(
+                135deg,
+                #6d28d9,
+                #db2777
+            );
+            color: white;
+        }
+
+        .outline-btn {
+            border: 1px solid rgba(255,255,255,0.35);
+            color: white;
+            background: transparent;
+        }
+
+        /* ================= ANNOUNCEMENT ================= */
+
+        .announcement {
+            background: white;
+            border-bottom: 1px solid #e8e1ed;
+        }
+
+        .announcement-content {
+            min-height: 62px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .announcement strong {
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .announcement p {
+            font-size: 13px;
+            color: #706979;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .label {
+            color: #6d28d9;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .section-heading h2 {
+            font-family: Georgia, serif;
+            font-size: clamp(34px,4vw,48px);
+            line-height: 1.1;
+            margin-top: 7px;
+        }
+
+        .section-heading h2 span {
+            color: #6d28d9;
+        }
+
+        .view-link {
+            color: #6d28d9;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* ================= EVENT CARDS ================= */
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 22px;
+        }
+
+        .event-card {
+            background: white;
+            border: 1px solid #e9e3ee;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 7px 24px rgba(40,20,60,0.05);
+            transition: 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 45px rgba(35,18,55,0.12);
+        }
+
+        .event-image {
+            height: 175px;
+            display: grid;
+            place-items: center;
+            font-size: 55px;
+            color: white;
+        }
+
+        .tech {
+            background: linear-gradient(
+                135deg,
+                #312e81,
+                #7c3aed
+            );
+        }
+
+        .culture {
+            background: linear-gradient(
+                135deg,
+                #9d174d,
+                #ec4899
+            );
+        }
+
+        .innovation {
+            background: linear-gradient(
+                135deg,
+                #92400e,
+                #f59e0b
+            );
+        }
+
+        .event-content {
+            padding: 22px;
+        }
+
+        .event-date {
+            color: #6d28d9;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .event-content h3 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin: 6px 0;
+        }
+
+        .event-content p {
+            color: #706979;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .event-link {
+            color: #6d28d9;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            background: linear-gradient(
+                120deg,
+                #24152f,
+                #4c1d5f
+            );
+            border-radius: 24px;
+            padding: 48px;
+            color: white;
+        }
+
+        .cta h2 {
+            font-family: Georgia, serif;
+            font-size: 40px;
+            margin: 8px 0;
+        }
+
+        .cta p {
+            color: #d8cedf;
+            margin-bottom: 22px;
+        }
+
+        .light-btn {
+            background: white;
+            color: #18151f;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #17121e;
+            color: #aaa0b1;
+            padding-top: 55px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: 35px;
+            padding-bottom: 45px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: 13px;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #a89dad;
+            font-size: 12px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 18px 0;
+            font-size: 11px;
+        }
+
+        .copyright-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:950px) {
+
+            .event-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                gap: 12px;
+            }
+        }
+
+        @media(max-width:720px) {
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 4%;
+                right: 4%;
+                background: white;
+                padding: 18px;
+                border-radius: 16px;
+                box-shadow: 0 18px 45px rgba(35,18,55,0.12);
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            nav a {
+                text-align: center;
+                padding: 8px;
+            }
+
+            .hero {
+                min-height: 560px;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .copyright-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .announcement-content {
+                padding: 12px 0;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 3px;
+            }
+
+            .cta {
+                padding: 30px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="container navbar">
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-icon">
+                A
+            </div>
+
+            <div class="logo-text">
+                <strong>AURA</strong>
+                <small>2026 FEST</small>
+            </div>
+
+        </a>
+
+        <button
+            class="menu-btn"
+            id="menuBtn">
+            ☰
+        </button>
+
+        <nav id="navigation">
+
+            <a href="index.html" class="active">
+                Home
+            </a>
+
+            <a href="events.html">
+                Events
+            </a>
+
+            <a href="schedule.html">
+                Schedule
+            </a>
+
+            <a href="gallery.html">
+                Gallery
+            </a>
+
+            <a href="registration.html">
+                Registration
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+            <a
+                href="registration.html"
+                class="register-btn">
+                Register Now
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                ✦ NATIONAL COLLEGE FESTIVAL 2026
+            </div>
+
+            <h1>
+                Where Ideas
+                <span>Meet Energy.</span>
+            </h1>
+
+            <p>
+                Three unforgettable days of technology,
+                creativity, culture and competition.
+                Discover events, register instantly and
+                make your AURA memories count.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="events.html"
+                    class="btn primary-btn">
+                    Explore Events →
+                </a>
+
+                <a
+                    href="registration.html"
+                    class="btn outline-btn">
+                    Quick Registration
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ANNOUNCEMENT ================= -->
+
+<section class="announcement">
+
+    <div class="container announcement-content">
+
+        <strong>
+            📢 Latest Announcement
+        </strong>
+
+        <p id="announcementText">
+            Registrations are now open
+            for AURA 2026!
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURED EVENTS ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <div class="label">
+                    WHAT'S HAPPENING
+                </div>
+
+                <h2>
+                    Featured
+                    <span>Events</span>
+                </h2>
+
+            </div>
+
+            <a
+                href="events.html"
+                class="view-link">
+                View all events →
+            </a>
+
+        </div>
+
+
+        <div class="event-grid">
+
+
+            <!-- EVENT 1 -->
+
+            <article class="event-card">
+
+                <div class="event-image tech">
+                    💻
+                </div>
+
+                <div class="event-content">
+
+                    <div class="event-date">
+                        12 OCT · 10:00 AM
+                    </div>
+
+                    <h3>
+                        Code Clash
+                    </h3>
+
+                    <p>
+                        Competitive programming
+                        challenges designed to test
+                        logic and problem-solving skills.
+                    </p>
+
+                    <a
+                        href="registration.html?event=Code%20Clash"
+                        class="event-link">
+                        Register →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- EVENT 2 -->
+
+            <article class="event-card">
+
+                <div class="event-image culture">
+                    🎭
+                </div>
+
+                <div class="event-content">
+
+                    <div class="event-date">
+                        13 OCT · 05:00 PM
+                    </div>
+
+                    <h3>
+                        Rhythm Rush
+                    </h3>
+
+                    <p>
+                        A high-energy cultural showcase
+                        celebrating music, dance and
+                        expression.
+                    </p>
+
+                    <a
+                        href="registration.html?event=Rhythm%20Rush"
+                        class="event-link">
+                        Register →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- EVENT 3 -->
+
+            <article class="event-card">
+
+                <div class="event-image innovation">
+                    💡
+                </div>
+
+                <div class="event-content">
+
+                    <div class="event-date">
+                        14 OCT · 11:00 AM
+                    </div>
+
+                    <h3>
+                        Idea Arena
+                    </h3>
+
+                    <p>
+                        Present innovative ideas and
+                        turn creative thinking into
+                        meaningful solutions.
+                    </p>
+
+                    <a
+                        href="registration.html?event=Idea%20Arena"
+                        class="event-link">
+                        Register →
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="section" style="padding-top:0">
+
+    <div class="container">
+
+        <div class="cta">
+
+            <div class="label">
+                READY TO JOIN?
+            </div>
+
+            <h2>
+                Your AURA journey starts here.
+            </h2>
+
+            <p>
+                Choose an event, complete the form
+                and become part of the celebration.
+            </p>
+
+            <a
+                href="registration.html"
+                class="btn light-btn">
+                Register for an Event →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container footer-grid">
+
+
+        <div>
+
+            <a href="index.html" class="logo">
+
+                <div class="logo-icon">
+                    A
+                </div>
+
+                <div class="logo-text">
+                    <strong style="color:white">
+                        AURA
+                    </strong>
+
+                    <small>
+                        2026 FEST
+                    </small>
+                </div>
+
+            </a>
+
+            <p style="margin-top:16px;max-width:300px;font-size:12px">
+                National College Cultural &
+                Technical Festival.
+                Celebrate. Create. Compete.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Explore</h4>
+
+            <a href="events.html">
+                Events
+            </a>
+
+            <a href="schedule.html">
+                Schedule
+            </a>
+
+            <a href="gallery.html">
+                Gallery
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Participate</h4>
+
+            <a href="registration.html">
+                Registration
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>Contact</h4>
+
+            <p>
+                Prathyusha Engineering College
+            </p>
+
+            <p>
+                aura2026@college.edu
+            </p>
+
+            <p>
+                +91 98765 43210
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        <div class="container copyright-content">
+
+            <span>
+                © 2026 AURA Festival.
+                All rights reserved.
+            </span>
+
+            <span>
+                Front-End Mini Project
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    /* Mobile Navigation */
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+    const navigation =
+        document.getElementById("navigation");
+
+    menuBtn.addEventListener("click", function () {
+
+        navigation.classList.toggle("open");
+
+    });
+
+
+    /* Dynamic Announcement */
+
+    const announcements = [
+
+        "Registrations are now open for AURA 2026!",
+
+        "Code Clash registration closes on 10 October 2026.",
+
+        "AURA 2026 schedule is now available."
+
+    ];
+
+    let announcementIndex = 0;
+
+    setInterval(function () {
+
+        announcementIndex++;
+
+        if (
+            announcementIndex >=
+            announcements.length
+        ) {
+            announcementIndex = 0;
+        }
+
+        document.getElementById(
+            "announcementText"
+        ).textContent =
+            announcements[announcementIndex];
+
+    }, 3500);
+
+</script>
+
+</body>
+</html>
